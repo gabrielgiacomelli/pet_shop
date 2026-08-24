@@ -1,22 +1,111 @@
 <?php
-include 'conexao.php';
+include 'infra/conexao.php';
+
+$resultado = $conn->query("SELECT * FROM cliente");
+
+$resultado_animais = $conn->query("
+    SELECT animais.id, animais.nome, animais.especie, animais.peso, cliente.nome AS dono
+    FROM animais
+    INNER JOIN cliente ON animais.id_cliente = cliente.id
+");
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index pet shop</title>
+    <title>Index Pet Shop</title>
 </head>
+
 <body>
-    <div style= "align-items: center; display: flex; justify-content: center; height: 100vh;">
-    <main style="display: flex;flex-direction: column; align-items: center; gap: 10px;">
-        <h1>Bem-vindo ao Pet Shop</h1>
-        <a href="cadastro_usuario.php" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none;">Cadastrar Usuário</a>
-        <a href="editar_usuario.php" style="padding: 10px; background-color: #28a745; color: white; text-decoration: none;">Editar Usuário</a>
-        <a href="excluir_usuario.php" style="padding: 10px; background-color: #dc3545; color: white; text-decoration: none;">Excluir Usuário</a>
-        <a href="cadastro_animal.php" style="padding: 10px; background-color: #ffc107; color: black; text-decoration: none;">Cadastrar Animal</a>
-        <a href="editar_animal.php" style="padding: 10px; background-color: #17a2b8; color: white; text-decoration: none;">Editar Animal</a>
-        <a href="excluir_animal.php" style="padding: 10px; background-color: #6c757d; color: white; text-decoration: none;">Excluir Animal</a>
-    </main>
-</div>
+
+<header style="padding: 15px;">
+    <nav style="display: flex; justify-content: center; gap: 20px;">
+        <a href="public/cadastrar_usuario.php" style="color: black; text-decoration: none;">
+            Cadastrar Usuário
+        </a>
+
+        <a href="public/cadastrar_animal.php" style="color: black; text-decoration: none;">
+            Cadastrar Animal
+        </a>
+    </nav>
+</header>
+
+<main>
+
+    <h2>Clientes Cadastrados</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Ações</th>
+        </tr>
+
+        <?php while ($cliente = $resultado->fetch_assoc()) { ?>
+
+            <tr>
+                <td><?php echo $cliente['id']; ?></td>
+                <td><?php echo $cliente['nome']; ?></td>
+                <td><?php echo $cliente['CPF']; ?></td>
+
+                <td>
+                    <a href="public/editar_usuario.php?id=<?php echo $cliente['id']; ?>">
+                        Editar
+                    </a>
+
+                    <a href="public/excluir_usuario.php?id=<?php echo $cliente['id']; ?>">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+
+        <?php } ?>
+
+    </table>
+
+
+    <h2>Animais Cadastrados</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Espécie</th>
+            <th>Peso</th>
+            <th>Dono</th>
+            <th>Ações</th>
+        </tr>
+
+        <?php while ($animal = $resultado_animais->fetch_assoc()) { ?>
+
+            <tr>
+                <td><?php echo $animal['id']; ?></td>
+                <td><?php echo $animal['nome']; ?></td>
+                <td><?php echo $animal['especie']; ?></td>
+                <td><?php echo $animal['peso']; ?> kg</td>
+                <td><?php echo $animal['dono']; ?></td>
+
+                <td>
+                    <a href="public/editar_animal.php?id=<?php echo $animal['id']; ?>">
+                        Editar
+                    </a>
+
+                    <a href="public/excluir_animal.php?id=<?php echo $animal['id']; ?>">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+
+        <?php } ?>
+
+    </table>
+
+</main>
+
+</body>
+</html>
