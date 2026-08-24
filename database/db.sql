@@ -1,0 +1,17 @@
+CREATE DATABASE pet_shop_db;
+USE pet_shop_db;
+
+CREATE TABLE cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(250) NOT NULL,
+    CPF VARCHAR(11) NOT NULL UNIQUE
+);
+
+CREATE TABLE animais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    especie VARCHAR(100) NOT NULL, 
+    nome VARCHAR(100) NOT NULL,
+    peso DECIMAL(10,2) NOT NULL,
+    id_cliente INT NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+);
