@@ -10,6 +10,7 @@ $sql = "INSERT INTO cliente (nome, cpf) VALUES (?, ?)";
  $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $nome, $cpf);
 
+    $stmt->execute();
     $stmt->close();
 }
 ?>

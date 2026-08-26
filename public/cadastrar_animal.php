@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssdi", $nome, $especie, $peso, $id_cliente);
 
+    $stmt->execute();
     $stmt->close();
 }
 ?>
