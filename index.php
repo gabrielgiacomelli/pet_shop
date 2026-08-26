@@ -4,7 +4,13 @@ include 'infra/conexao.php';
 $resultado = $conn->query("SELECT * FROM cliente");
 
 $resultado_animais = $conn->query("
-    SELECT animais.id, animais.nome, animais.especie, animais.peso, cliente.nome AS dono
+    SELECT 
+        animais.id,
+        animais.nome,
+        animais.especie,
+        animais.peso,
+        animais.id_cliente,
+        cliente.nome AS dono
     FROM animais
     INNER JOIN cliente ON animais.id_cliente = cliente.id
 ");
@@ -91,9 +97,9 @@ $resultado_animais = $conn->query("
                 <td><?php echo $animal['dono']; ?></td>
 
                 <td>
-                    <a href="public/visualizar.php?id=<?php echo $cliente['id']; ?>">
-    Visualizar
-</a>
+                    <a href="public/detalhes_cliente.php?id=<?php echo $animal['id_cliente']; ?>">
+                    Visualizar
+                    </a>
                     <a href="public/editar_animal.php?id=<?php echo $animal['id']; ?>">
                         Editar
                     </a>
