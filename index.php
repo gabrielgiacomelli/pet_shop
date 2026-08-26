@@ -57,9 +57,9 @@ $resultado_animais = $conn->query("
                         Editar
                     </a>
 
-                    <a href="public/excluir_usuario.php?id=<?php echo $cliente['id']; ?>">
-                        Excluir
-                    </a>
+                <a href="public/excluir_usuario.php?id=<?php echo $cliente['id']; ?>">
+    Excluir
+</a>
                 </td>
             </tr>
 
@@ -91,6 +91,9 @@ $resultado_animais = $conn->query("
                 <td><?php echo $animal['dono']; ?></td>
 
                 <td>
+                    <a href="public/visualizar.php?id=<?php echo $cliente['id']; ?>">
+    Visualizar
+</a>
                     <a href="public/editar_animal.php?id=<?php echo $animal['id']; ?>">
                         Editar
                     </a>
